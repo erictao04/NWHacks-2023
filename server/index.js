@@ -5,7 +5,7 @@ db.pragma('journal_mode = WAL');
 const app = express();
 const port = 3001;
 
-const createPeopleTable = `
+const createUserTable = `
   CREATE TABLE User (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR NOT NULL,
@@ -19,14 +19,14 @@ const createPeopleTable = `
 const createFriendTable = `
   CREATE TABLE Friend (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user1_id INT NOT NULL,
-    user2_id INT NOT NULL
+    user1_id INTEGER NOT NULL,
+    user2_id INTEGER NOT NULL
   );
 `;
 const createTaskTable = `
 CREATE TABLE Task (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INT NOT NULL,
+  user_id INTEGER NOT NULL,
   name VARCHAR NOT NULL,
   time_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   completed BOOLEAN NOT NULL DEFAULT FALSE,
@@ -36,7 +36,7 @@ CREATE TABLE Task (
 `;
 
 try {
-  db.exec(createPeopleTable);
+  db.exec(createUserTable);
   console.log('Create person table');
 } catch (e) {
   console.log('Person table exists already');
