@@ -8,32 +8,34 @@ const port = 3001;
 const createPeopleTable = `
   CREATE TABLE People (
     id INT AUTO_INCREMENT,
-    name VARCHAR NOT NULL DEFAULT '',
-    username VARCHAR NOT NULL DEFAULT '',
-    password VARCHAR NOT NULL DEFAULT '',
+    name VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL, 
+    username VARCHAR UNIQUE NOT NULL,
+    password VARCHAR NOT NULL,
     profile_picture_url VARCHAR DEFAULT '',
     PRIMARY KEY (id)
   );
 `;
 
 const createFriendsTable = `
-    CREATE TABLE Friend (
-    id INT AUTO_INCREMENT,
-    person1_id INT NOT NULL DEFAULT NULL,
+  CREATE TABLE Friend (
+    id INT AUTO_INCREMENT NOT NULL,
+    person1_id INT NOT NULL,
     person2_id INT NOT NULL,
     PRIMARY KEY (id)
   );
 `;
 const createTaskTable = `
-  CREATE TABLE Task (
-    id INT AUTO_INCREMENT,
-    person_id INT NOT NULL,
-    name VARCHAR NOT NULL,
-    time_created DATETIME NOT NULL,
-    completed BOOLEAN NOT NULL,
-    picture_url VARCHAR NOT NULL,
-    PRIMARY KEY (id)
-  );
+CREATE TABLE Task (
+  id INT AUTO_INCREMENT NOT NULL,
+  person_id INT NOT NULL,
+  name VARCHAR NOT NULL,
+  time_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  completed BOOLEAN NOT NULL DEFAULT FALSE,
+  time_completed DATETIME,
+  picture_url VARCHAR,
+  PRIMARY KEY (id)
+);
 `;
 
 try {
