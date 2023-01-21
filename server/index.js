@@ -23,17 +23,26 @@ const createFriendTable = `
     user2_id INTEGER NOT NULL
   );
 `;
+
 const createTaskTable = `
-CREATE TABLE Task (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER NOT NULL,
-  name VARCHAR NOT NULL,
-  time_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  completed BOOLEAN NOT NULL DEFAULT FALSE,
-  time_completed DATETIME,
-  picture_url VARCHAR
-);
+  CREATE TABLE Task (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    name VARCHAR NOT NULL,
+    time_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    time_completed DATETIME,
+    picture_url VARCHAR
+  );
 `;
+
+const createFriendRequestsTable = `
+  CREATE TABLE FriendRequests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date DATETIME DEFAULT CURRENT_TIME, 
+    receiver_id INTEGER NOT NULL,
+    sender_id INTEGER NOT NULL
+);`;
 
 try {
   db.exec(createUserTable);
@@ -54,6 +63,13 @@ try {
   console.log('Create task table');
 } catch (e) {
   console.log('Task table exists already');
+}
+
+try {
+  db.exec(createFriendRequestsTable);
+  console.log('Create friend requests table');
+} catch (e) {
+  console.log('Friend requests exists already');
 }
 
 const friendsRequests = require('./routes/friend-request');
