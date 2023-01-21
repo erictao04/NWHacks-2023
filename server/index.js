@@ -6,35 +6,32 @@ const app = express();
 const port = 3001;
 
 const createPeopleTable = `
-  CREATE TABLE People (
-    id INT AUTO_INCREMENT,
+  CREATE TABLE User (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR NOT NULL,
     email VARCHAR UNIQUE NOT NULL, 
     username VARCHAR UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
-    profile_picture_url VARCHAR DEFAULT '',
-    PRIMARY KEY (id)
+    profile_picture_url VARCHAR DEFAULT ''
   );
 `;
 
-const createFriendsTable = `
+const createFriendTable = `
   CREATE TABLE Friend (
-    id INT AUTO_INCREMENT NOT NULL,
-    person1_id INT NOT NULL,
-    person2_id INT NOT NULL,
-    PRIMARY KEY (id)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user1_id INT NOT NULL,
+    user2_id INT NOT NULL
   );
 `;
 const createTaskTable = `
 CREATE TABLE Task (
-  id INT AUTO_INCREMENT NOT NULL,
-  person_id INT NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INT NOT NULL,
   name VARCHAR NOT NULL,
   time_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   completed BOOLEAN NOT NULL DEFAULT FALSE,
   time_completed DATETIME,
-  picture_url VARCHAR,
-  PRIMARY KEY (id)
+  picture_url VARCHAR
 );
 `;
 
@@ -46,7 +43,7 @@ try {
 }
 
 try {
-  db.exec(createFriendsTable);
+  db.exec(createFriendTable);
   console.log('Create friend table');
 } catch (e) {
   console.log('Friend table exists already');
