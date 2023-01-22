@@ -15,8 +15,6 @@ router.get('/', (req, res) => {
   const body = req.body;
   console.log(JSON.stringify(body, null, 2));
 
-  const POSTS = ``;
-
   const FRIENDS = `SELECT *
                      FROM Friend
                      INNER JOIN User ON Friend.user1_id='${body.user_id}'`;
