@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   const body = req.body;
   console.log(JSON.stringify(body, null, 2));
 
-  const POSTS = ``;
+  const POSTS = `SELECT * FROM Task `;
 
   const FRIENDS = `SELECT *
                      FROM Friend
