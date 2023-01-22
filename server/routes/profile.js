@@ -2,10 +2,15 @@ const db = require('better-sqlite3')('project.db');
 db.pragma('journal_mode = WAL');
 const express = require('express');
 let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 let router = express.Router();
+dotenv.config();
 
 router.use(bodyParser.json());
+router.use(cookieParser());
 
 router.post('/signup', (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));

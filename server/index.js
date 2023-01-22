@@ -78,10 +78,14 @@ try {
 const friendsRequests = require('./routes/friend-request');
 const profile = require('./routes/profile');
 const tasks = require('./routes/tasks');
+const feed = require('./routes/feed');
+const friends = require('./routes/friends');
 
 app.use('/friend-requests', friendsRequests);
 app.use('/profile', profile);
 app.use('/tasks', tasks);
+app.use('/feed', feed);
+app.use('/friends', friends);
 
 app.get('/', (req, res) => {
   res.send('Hello World, backend works!');
