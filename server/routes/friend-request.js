@@ -7,8 +7,11 @@ db.pragma('journal_mode = WAL');
 let router = express.Router();
 
 router.use(bodyParser.json());
+router.use(cookieParser());
 
-router.post('/accept', (req, res) => {
+const auth = require('../auth');
+
+router.post('/accept', auth, (req, res) => {
   const body = req.body;
 
   const friendReq = db.prepare(`SELECT * FROM FriendRequests WHERE id = ${body.id}`).get();

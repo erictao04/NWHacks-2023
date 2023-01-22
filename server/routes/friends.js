@@ -11,13 +11,15 @@ dotenv.config();
 router.use(bodyParser.json());
 router.use(cookieParser());
 
-router.get('/', (req, res) => {
-  const body = req.body;
-  console.log(JSON.stringify(body, null, 2));
+const auth = require('../auth');
+
+router.get('/', auth, (req, res) => {
+  const user_id = req.user_id;
+  //console.log(JSON.stringify(body, null, 2));
 
   const FRIENDS = `SELECT *
                      FROM Friend
-                     INNER JOIN User ON Friend.user1_id='${body.user_id}'`;
+                     INNER JOIN User ON Friend.user1_id='${user_id}'`;
 
   try {
     const ALLFRIENDS = db.prepare(FRIENDS).all();

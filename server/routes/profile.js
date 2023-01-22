@@ -34,19 +34,28 @@ router.post('/signup', (req, res) => {
 
 router.get('/login', (req, res) => {
   const body = req.body;
-  console.log(JSON.stringify(body, null, 2));
+  //console.log(JSON.stringify(body, null, 2));
 
   const USER = `SELECT * FROM User
                 WHERE username='${body.username}'`;
 
   try {
     const user = db.prepare(USER).get();
-    console.log(user);
+    //console.log(user);
+
+    const token = jwt.sign({ user_id: user.id }, process.env.TOKEN_SECRET);
 
     if (user) {
       bcrypt.compare(body.password, user.password, (err, result) => {
         if (result) {
-          res.send('Logged in, redirecting!').status(200);
+          //res.send('Logged in, redirecting!').status(200);
+          return res
+            .cookie('access_token', token, {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+            })
+            .status(200)
+            .json({ message: 'Logged in successfully 😊 👌' });
         } else {
           res.send('Wrong password').status(401);
         }
