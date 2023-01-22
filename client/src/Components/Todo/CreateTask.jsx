@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AlertDialogSlide from './CreateTaskDialog';
+import CreateTaskDialog from './CreateTaskDialog';
 
 export default function CreateTask() {
   return (
@@ -13,7 +13,7 @@ export default function CreateTask() {
         width: '100%',
         cursor: 'pointer',
       }}>
-      <AlertDialogSlide />
+      <CreateTaskDialog />
     </div>
   );
 }

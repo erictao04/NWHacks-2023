@@ -13,7 +13,7 @@ export default function Post({ task }) {
   return (
     <div style={{ backgroundColor: 'white', borderRadius: '10px' }}>
       <PostHeader task={task} />
-      <PostImage />
+      <PostImage url={task.url} />
       <div style={{ display: 'flex', justifyContent: 'end', margin: '5px 10px', color: '#D0D8D8' }}>
         {time}
       </div>
