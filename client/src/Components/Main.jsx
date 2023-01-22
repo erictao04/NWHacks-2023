@@ -9,8 +9,7 @@ import Todo from './Todo/Todo';
 export default function Main() {
   const [value, setValue] = React.useState(0);
 
-  const profileUrl =
-    'https://lh3.googleusercontent.com/ogw/AAEL6sggMroyh3_FGElpcVH9_m54NQmXHQuHLh1J_INs8g=s32-c-mo';
+  const profileUrl = localStorage.getItem('profile_url');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

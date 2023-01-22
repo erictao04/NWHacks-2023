@@ -14,13 +14,14 @@ router.use(cookieParser());
 
 router.post('/signup', (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));
+  const defaultIcon = '';
 
   const body = req.body;
 
   bcrypt.hash(body.password, 10, function (err, hash) {
     const NEWUSER = `INSERT INTO User
     (name, email, username, password, profile_picture_url)
-    VALUES ('${body.name}', '${body.email}', '${body.username}', '${hash}', '${body.profile_picture_url}')`;
+    VALUES ('${body.name}', '${body.email}', '${body.username}', '${hash}', '${defaultIcon}')`;
 
     try {
       db.exec(NEWUSER);
