@@ -6,13 +6,13 @@ let router = express.Router();
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
-  const body = req.body;
-  console.log(JSON.stringify(body, null, 2));
+router.get('/:user_id/', (req, res) => {
+  const user_id = req.params.user_id;
 
-  const TASKS = `SELECT *
+  const TASKS = `SELECT Task.id, Task.name as task_name, completed, user_id
                    FROM Task
-                   INNER JOIN User ON Task.user_id='${body.task_id}'`;
+                  JOIN User ON Task.user_id=User.id
+                  WHERE user_id='${user_id}'`;
 
   try {
     const ALLTASKS = db.prepare(TASKS).all();
@@ -65,10 +65,12 @@ router.put('/', (req, res) => {
   const task = db.prepare(isExistent).get();
 
   if (task) {
-    const MODIFY = `UPDATE Task SET name='${body.task_name}' WHERE id='${body.task_id}'`;
+    const MODIFY = `UPDATE Task SET name='${body.name}' WHERE id='${body.task_id}'`;
+    const MODIFY2 = `UPDATE Task SET completed='${body.completed}' WHERE id='${body.task_id}'`;
 
     try {
       db.exec(MODIFY);
+      db.exec(MODIFY2);
       res.send('Successfully modified task name!').status(200);
     } catch (err) {
       console.log('Error: ' + err);
