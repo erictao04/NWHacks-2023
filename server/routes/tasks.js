@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
   const TASKS = `SELECT *
                    FROM Task
-                   INNER JOIN User ON Task.user_id=User.id`;
+                   INNER JOIN User ON Task.user_id='${body.task_id}'`;
 
   try {
     const ALLTASKS = db.prepare(TASKS).all();
