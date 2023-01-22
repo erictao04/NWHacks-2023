@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const db = require('better-sqlite3')('project.db');
 
 db.pragma('journal_mode = WAL');
