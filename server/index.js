@@ -1,9 +1,12 @@
 const express = require('express');
+var cors = require('cors');
 const db = require('better-sqlite3')('project.db');
 db.pragma('journal_mode = WAL');
 
 const app = express();
 const port = 3001;
+
+app.use(cors());
 
 const createUserTable = `
   CREATE TABLE User (

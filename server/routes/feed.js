@@ -15,15 +15,12 @@ router.get('/', (req, res) => {
   const body = req.body;
   console.log(JSON.stringify(body, null, 2));
 
-  const POSTS = `SELECT * FROM Task `;
-
-  const FRIENDS = `SELECT *
-                     FROM Friend
-                     INNER JOIN User ON Friend.user1_id='${body.user_id}'`;
+  const feed = `SELECT *, Task.name FROM Task LEFT JOIN User on user_id = User.id`;
 
   try {
-    const ALLFRIENDS = db.prepare(FRIENDS).all();
-    res.send(ALLFRIENDS).status(200);
+    const Feed = db.prepare(feed).all();
+    Feed.sort((a, b) => b.time_completed - a.time_completed);
+    res.json(Feed).status(200);
   } catch (err) {
     res.send('Fail').status(500);
   }
