@@ -78,7 +78,7 @@ const tasks = require('./routes/tasks');
 
 app.use('/friend-requests', friendsRequests);
 app.use('/profile', profile);
-app.use('/task', tasks);
+app.use('/tasks', tasks);
 
 app.get('/', (req, res) => {
   res.send('Hello World, backend works!');
