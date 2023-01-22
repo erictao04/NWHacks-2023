@@ -2,7 +2,10 @@ const db = require('better-sqlite3')('project.db');
 db.pragma('journal_mode = WAL');
 const express = require('express');
 let bodyParser = require('body-parser');
+const multer = require('multer');
+
 let router = express.Router();
+const upload = multer();
 
 router.use(bodyParser.json());
 
@@ -107,6 +110,23 @@ router.put('/', (req, res) => {
     }
   } else {
     res.send('Task does not exist').status(500);
+  }
+});
+
+router.put('/upload-image', upload.single('image'), (req, res) => {
+  const file = req.file;
+  const body = req.body;
+
+  const MODIFY = `UPDATE Task SET picture_url='${file.buffer.toString('base64')}' WHERE id='${
+    body.task_id
+  }'`;
+
+  try {
+    db.exec(MODIFY);
+    res.send('Successfully modified task picture url!').status(200);
+  } catch (err) {
+    console.log('Error: ' + err);
+    res.send('Fail').status(500);
   }
 });
 

@@ -16,7 +16,8 @@ router.get('/', auth, (req, res) => {
   const body = req.body;
   console.log(JSON.stringify(body, null, 2));
 
-  const feed = `SELECT *, Task.name FROM Task LEFT JOIN User on user_id = User.id`;
+  const feed = `SELECT username, picture_url, profile_picture_url, time_completed, completed, 
+  Task.name, Task.id FROM Task LEFT JOIN User on user_id = User.id`;
 
   if (req.authenticate) {
     try {
