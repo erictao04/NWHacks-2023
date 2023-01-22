@@ -32,7 +32,7 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.get('/login', (req, res) => {
+router.post('/login', (req, res) => {
   const body = req.body;
   //console.log(JSON.stringify(body, null, 2));
 
@@ -43,7 +43,7 @@ router.get('/login', (req, res) => {
     const user = db.prepare(USER).get();
     //console.log(user);
 
-    const token = jwt.sign({ user_id: user.id }, process.env.TOKEN_SECRET);
+    const token = jwt.sign({ user_id: user.id }, process.env.TOKEN_SECRET, { expiresIn: '3600s' });
 
     if (user) {
       bcrypt.compare(body.password, user.password, (err, result) => {
