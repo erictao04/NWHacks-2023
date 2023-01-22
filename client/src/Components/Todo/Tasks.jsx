@@ -3,7 +3,7 @@ import Task from './Task';
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const user_id = 2; // TODO Get from context
+  const user_id = localStorage.getItem('user_id');
 
   useEffect(() => {
     fetch(`http://localhost:3001/tasks/${user_id}/`, {

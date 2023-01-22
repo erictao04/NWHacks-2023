@@ -17,9 +17,15 @@ export default function Login() {
         username: username,
         password: password,
       }),
-    }).then((response) => {
-      navigate('/');
-    });
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        localStorage.setItem('user_name', json.user_name);
+        localStorage.setItem('user_id', json.user_id);
+        localStorage.setItem('profile_url', json.profile_picture_url);
+        navigate('/');
+      });
   };
 
   return (
