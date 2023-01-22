@@ -1,10 +1,12 @@
 import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     fetch('http://localhost:3001/profile/login/', {
@@ -15,7 +17,9 @@ export default function Login() {
         username: username,
         password: password,
       }),
-    }).then((response) => {});
+    }).then((response) => {
+      navigate('/');
+    });
   };
 
   return (
