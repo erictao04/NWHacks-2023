@@ -17,13 +17,13 @@ router.get('/login', (req, res) => {
     const user = db.prepare(USER).get();
 
     if (user) {
-      res.send('Logged in, redirecting!').sendStatus(200);
+      res.send('Logged in, redirecting!').status(200);
     } else {
-      res.send('Wrong username/password').sendStatus(401);
+      res.send('Wrong username/password').status(401);
     }
   } catch (err) {
     console.log('Error: ' + err);
-    res.send('Error').sendStatus(500);
+    res.send('Error').status(500);
   }
 
   //res.send('GET /LOGIN');
@@ -40,10 +40,10 @@ router.post('/signup', (req, res) => {
 
   try {
     db.exec(NEWUSER);
-    res.send('New user created!').sendStatus(200);
+    res.send('New user created!').status(200);
   } catch (err) {
     console.log('Error:  ' + err);
-    res.send('Username is taken').sendStatus(500);
+    res.send('Username is taken').status(500);
   }
 });
 
