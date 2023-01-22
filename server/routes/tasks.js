@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 
   const NEWTASK = `INSERT INTO Task
                       (user_id, name, completed, picture_url)
-                      VALUES ('${body.user_id}', '${body.name}', '${body.completed}', '${body.picture_url}')`;
+                      VALUES ('${body.user_id}', '${body.name}', 0, '')`;
 
   try {
     db.exec(NEWTASK);
@@ -66,7 +66,9 @@ router.put('/', (req, res) => {
 
   if (task) {
     const MODIFY = `UPDATE Task SET name='${body.name}' WHERE id='${body.task_id}'`;
-    const MODIFY2 = `UPDATE Task SET completed='${body.completed}' WHERE id='${body.task_id}'`;
+    const MODIFY2 = `UPDATE Task SET completed='${body.completed ? 1 : 0}' WHERE id='${
+      body.task_id
+    }'`;
 
     try {
       db.exec(MODIFY);

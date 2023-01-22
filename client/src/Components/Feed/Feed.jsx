@@ -10,7 +10,8 @@ export default function Feed() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data);
+        const filtered = data.filter((p) => p.completed);
+        setPosts(filtered);
       });
   }, []);
 

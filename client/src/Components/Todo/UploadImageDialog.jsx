@@ -15,11 +15,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function CreateTaskDialog() {
-  const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-
-  const userId = 2; // TODO remove hardcoding
+export default function UploadImageDialog({ task, open, setOpen }) {
+  const [file, setFile] = React.useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,13 +26,23 @@ export default function CreateTaskDialog() {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleFileChange = (e) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = () => {
     fetch('http://localhost:3001/tasks/', {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        user_id: userId,
-        name: name,
+        task_id: task.id,
+        name: task.task_name,
+        completed: 1,
+        picture_url: 'base64',
       }),
     }).then(() => {
       handleClose();
@@ -44,31 +51,25 @@ export default function CreateTaskDialog() {
 
   return (
     <div>
-      <AddCircleOutlinedIcon
-        onClick={handleClickOpen}
-        style={{ fontSize: '60px', marginBottom: '20px' }}
-      />
       <Dialog
         open={open}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-describedby='alert-dialog-slide-description'>
-        <DialogTitle>Add Task</DialogTitle>
+        <DialogTitle>Share progress with friends!</DialogTitle>
         <DialogContent>
           <TextField
             label='name'
-            value={name}
+            type='file'
             style={{ paddingBottom: '0px !important' }}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
             ariant='standard'
+            onChange={handleFileChange}
           />
         </DialogContent>
         <DialogActions>
           <ArrowCircleUpIcon
-            onClick={handleSave}
+            onClick={handleUpload}
             style={{ fontSize: '40px', marginRight: '20px', cursor: 'pointer' }}
           />
         </DialogActions>

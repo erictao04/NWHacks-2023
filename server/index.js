@@ -78,6 +78,7 @@ try {
   console.log('Friend requests exists already');
 }
 
+db.exec(`UPDATE Task SET completed=1 WHERE id=2`);
 const friendsRequests = require('./routes/friend-request');
 const profile = require('./routes/profile');
 const tasks = require('./routes/tasks');

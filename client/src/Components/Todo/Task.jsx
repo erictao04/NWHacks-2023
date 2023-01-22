@@ -2,19 +2,36 @@ import React from 'react';
 import CancelIcon from '@mui/icons-material/Cancel';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import UploadImageDialog from './UploadImageDialog';
 
 export default function Task({ task }) {
   const taskName = task.task_name;
   const completed = !!task.completed;
+  const [open, setOpen] = React.useState(false);
 
   const handleCheck = () => {
+    if (completed) {
+      fetch('http://localhost:3001/tasks/', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          task_id: task.id,
+          name: taskName,
+          completed: !completed,
+          picture_url: '',
+        }),
+      });
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleDelete = () => {
     fetch('http://localhost:3001/tasks/', {
-      method: 'PUT',
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         task_id: task.id,
-        name: taskName,
-        completed: !completed,
       }),
     });
   };
@@ -48,13 +65,16 @@ export default function Task({ task }) {
           {taskName}
         </div>
         <CancelIcon
+          onClick={handleDelete}
           style={{
+            cursor: 'pointer',
             fontSize: '15px',
             marginRight: '15px',
             visibility: completed ? 'hidden' : 'visible',
           }}
         />
       </div>
+      <UploadImageDialog task={task} open={open} setOpen={setOpen} />
     </div>
   );
 }
