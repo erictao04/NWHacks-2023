@@ -27,9 +27,15 @@ export default function FeedHeader() {
       <div style={{ flexGrow: 1 }}>
         <GroupIcon style={{ fontSize: '40px' }} />
       </div>
-      <Tabs value={value} onChange={() => {}}>
-        <Tab label='Feed' />
-        <Tab label='To-do List' />
+      <Tabs
+        value={value}
+        style={{ color: '#34344E' }}
+        TabIndicatorProps={{
+          style: { display: 'none' },
+        }}
+        onChange={handleChange}>
+        <Tab label='Feed' value={0} />
+        <Tab label='To-do List' value={1} />
       </Tabs>
       <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
         <ProfilePicture url={profileUrl} />
