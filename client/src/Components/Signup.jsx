@@ -9,7 +9,8 @@ export default function Signup() {
   const handleSignup = () => {
     fetch('http://localhost:3001/profile/signup/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', credentials: 'include' },
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({
         username: username,
         password: password,
