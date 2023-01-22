@@ -35,7 +35,6 @@ export default function UploadImageDialog({ task, open, setOpen }) {
   };
 
   const handleUpload = () => {
-    console.log(Buffer.from(file, 'binary').toString('base64'));
     fetch('http://localhost:3001/tasks/', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -43,11 +42,23 @@ export default function UploadImageDialog({ task, open, setOpen }) {
         task_id: task.id,
         name: task.task_name,
         completed: 1,
-        picture_url: Buffer.from(file, 'binary').toString('base64'),
       }),
     }).then(() => {
       handleClose();
     });
+
+    if (file) {
+      const form = new FormData();
+      form.append('image', file);
+      form.append('task_id', task.id);
+
+      fetch('http://localhost:3001/tasks/upload-image', {
+        method: 'PUT',
+        body: form,
+      }).then(() => {
+        handleClose();
+      });
+    }
   };
 
   return (
