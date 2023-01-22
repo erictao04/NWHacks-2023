@@ -7,7 +7,14 @@ export default function Signup() {
   const [password, setPassword] = useState('');
 
   const handleSignup = () => {
-    fetch();
+    fetch('http://localhost:3001/profile/signup/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', credentials: 'include' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
   };
 
   return (

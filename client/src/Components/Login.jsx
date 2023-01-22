@@ -7,7 +7,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    fetch();
+    fetch('http://localhost:3001/profile/login/', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    }).then((response) => {});
   };
 
   return (
