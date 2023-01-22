@@ -17,42 +17,39 @@ export default function Main() {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginBottom: '20px',
-        alignItems: 'center',
-      }}>
-      <div style={{ flexGrow: 1, cursor: 'pointer' }}>
-        <GroupIcon style={{ fontSize: '40px' }} />
-      </div>
-      <Tabs
-        value={value}
-        style={{ color: '#34344E' }}
-        TabIndicatorProps={{
-          style: { display: 'none' },
-        }}
-        onChange={handleChange}>
-        <Tab label='Feed' value={0} />
-        <Tab label='To-do List' value={1} />
-      </Tabs>
+    <>
       <div
         style={{
-          flexGrow: 1,
           display: 'flex',
-          justifyContent: 'end',
+          justifyContent: 'center',
+          marginBottom: '20px',
           alignItems: 'center',
         }}>
-        <ProfilePicture url={profileUrl} />
+        <div style={{ flexGrow: 1, cursor: 'pointer' }}>
+          <GroupIcon style={{ fontSize: '40px' }} />
+        </div>
+        <Tabs
+          value={value}
+          style={{ color: '#34344E' }}
+          TabIndicatorProps={{
+            style: { display: 'none' },
+          }}
+          onChange={handleChange}>
+          <Tab label='Feed' value={0} />
+          <Tab label='To-do List' value={1} />
+        </Tabs>
+        <div
+          style={{
+            flexGrow: 1,
+            display: 'flex',
+            justifyContent: 'end',
+            alignItems: 'center',
+          }}>
+          <ProfilePicture url={profileUrl} />
+        </div>
       </div>
-    </div>
+      {value === 0 && <Feed />}
+      {value === 1 && <Todo />}
+    </>
   );
-
-  {
-    value === 0 && <Feed />;
-  }
-  {
-    value === 1 && <Todo />;
-  }
 }
