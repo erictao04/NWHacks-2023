@@ -1,0 +1,24 @@
+{
+  "name": "nwhacks-2023",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "cd client && npm i && cd .. && cd server && npm i",
+    "start": "concurrently \"cd client && npm start\" \"cd server && node index\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erictao04/NWHacks-2023.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erictao04/NWHacks-2023/issues"
+  },
+  "homepage": "https://github.com/erictao04/NWHacks-2023#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
