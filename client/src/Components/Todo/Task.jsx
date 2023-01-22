@@ -18,7 +18,6 @@ export default function Task({ task }) {
           task_id: task.id,
           name: taskName,
           completed: !completed,
-          picture_url: '',
         }),
       });
     } else {

@@ -35,6 +35,7 @@ export default function UploadImageDialog({ task, open, setOpen }) {
   };
 
   const handleUpload = () => {
+    console.log(Buffer.from(file, 'binary').toString('base64'));
     fetch('http://localhost:3001/tasks/', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -42,7 +43,7 @@ export default function UploadImageDialog({ task, open, setOpen }) {
         task_id: task.id,
         name: task.task_name,
         completed: 1,
-        picture_url: 'base64',
+        picture_url: Buffer.from(file, 'binary').toString('base64'),
       }),
     }).then(() => {
       handleClose();

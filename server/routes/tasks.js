@@ -69,10 +69,37 @@ router.put('/', (req, res) => {
     const MODIFY2 = `UPDATE Task SET completed='${body.completed ? 1 : 0}' WHERE id='${
       body.task_id
     }'`;
+    const MODIFY3 = `UPDATE Task SET time_completed='${Date.now()}' WHERE id='${body.task_id}'`;
 
     try {
       db.exec(MODIFY);
       db.exec(MODIFY2);
+      db.exec(MODIFY3);
+      res.send('Successfully modified task name!').status(200);
+    } catch (err) {
+      console.log('Error: ' + err);
+      res.send('Fail').status(500);
+    }
+  } else {
+    res.send('Task does not exist').status(500);
+  }
+});
+
+router.put('/', (req, res) => {
+  const body = req.body;
+
+  const isExistent = `SELECT * FROM Task
+                WHERE id='${body.task_id}'`;
+
+  const task = db.prepare(isExistent).get();
+
+  if (task) {
+    const MODIFY = `UPDATE Task SET name='${body.name}' WHERE id='${body.task_id}'`;
+
+    try {
+      db.exec(MODIFY);
+      db.exec(MODIFY2);
+      db.exec(MODIFY3);
       res.send('Successfully modified task name!').status(200);
     } catch (err) {
       console.log('Error: ' + err);
