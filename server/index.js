@@ -51,6 +51,9 @@ try {
   console.log('Person table exists already');
 }
 
+//db.exec(`INSERT INTO Task (user_id, name, username, password, profile_picture_url)
+//VALUES ('Eric Tao', 'erictao04@gmail.com', 'erictao04', '333', 'https://lh3.googleusercontent.com/ogw/AAEL6sggMroyh3_FGElpcVH9_m54NQmXHQuHLh1J_INs8g=s32-c-mo')`);
+
 try {
   db.exec(createFriendTable);
   console.log('Create friend table');
