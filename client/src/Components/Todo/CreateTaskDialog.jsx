@@ -19,7 +19,7 @@ export default function CreateTaskDialog() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('');
 
-  const userId = 2; // TODO remove hardcoding
+  const userId = localStorage.getItem('user_id');
 
   const handleClickOpen = () => {
     setOpen(true);

@@ -41,7 +41,7 @@ router.post('/login', (req, res) => {
 
   try {
     const user = db.prepare(USER).get();
-    //console.log(user);
+    console.log(user);
 
     const token = jwt.sign({ user_id: user.id }, process.env.TOKEN_SECRET, { expiresIn: '3600s' });
 
@@ -55,7 +55,12 @@ router.post('/login', (req, res) => {
               secure: process.env.NODE_ENV === 'production',
             })
             .status(200)
-            .json({ message: 'Logged in successfully 😊 👌' });
+            .json({
+              message: 'Logged in successfully 😊 👌',
+              user_id: user.id,
+              user_name: user.name,
+              profile_picture_url: user.profile_picture_url,
+            });
         } else {
           res.send('Wrong password').status(401);
         }
